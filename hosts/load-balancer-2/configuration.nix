@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, sops, ... }:
 
 {
+    imports =
+    [ # Include the results of the hardware scan.
+        ../common/hardware-configuration.nix
+        ../common/configuration.nix
+    ];
+
     services.caddy.enable = true;
     services.caddy.email = "chris@christopherjones.us";
     services.caddy.logFormat = ''

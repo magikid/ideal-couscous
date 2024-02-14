@@ -1,0 +1,9 @@
+keys:
+  - &admin_chris age18rmks3pr2z0mhpe4nga72t5mxxrnz3lzqzddycqh5arm3m98spxs0hevyz
+  - &server_zigbee2mqtt age1l8kjdm4074xfxjl93cnqag4c4cdj6qk8ppq8wjmud0ev6a0el3wsmrdefs
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *admin_chris
+      - *server_zigbee2mqtt
