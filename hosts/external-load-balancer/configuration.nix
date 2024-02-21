@@ -33,9 +33,10 @@ in
         "net.core.wmem_max" = 2500000;
     };
 
+    services.tailscale.enable = true;
+
     environment.systemPackages = [
         pkgs.nss
-        pkgs.curl
         pkgs.openssl
     ];
 
@@ -58,8 +59,7 @@ in
     systemd.services.caddy.serviceConfig = {
         AmbientCapabilities="CAP_NET_BIND_SERVICE";
     };
-
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [ 22 80 443 ];
     services.caddy = {
         enable = true;
         email = "chris@christopherjones.us";

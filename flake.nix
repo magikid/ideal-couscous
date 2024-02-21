@@ -58,6 +58,7 @@
               secrets = {
                 "digital_ocean/dns_token" = {};
                 "cloudflare/dns_token" = {};
+                "tailscale/auth_token" = {};
               };
             };
           }
