@@ -48,8 +48,19 @@
 
       "external-load-balancer.hilandchris.com" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+
         modules = [
           ./hosts/external-load-balancer/configuration.nix
+          sops-nix.nixosModules.sops {
+            sops = {
+              defaultSopsFile = ./secrets/secrets.yaml;
+              age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+              secrets = {
+                "digital_ocean/dns_token" = {};
+                "cloudflare/dns_token" = {};
+              };
+            };
+          }
         ];
       };
     };

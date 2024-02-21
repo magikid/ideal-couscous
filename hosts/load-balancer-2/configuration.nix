@@ -2,9 +2,8 @@
 
 {
     imports =
-    [ # Include the results of the hardware scan.
-        ../common/hardware-configuration.nix
-        ../common/configuration.nix
+    [
+        ../common/proxmox.nix
     ];
 
     services.caddy.enable = true;
