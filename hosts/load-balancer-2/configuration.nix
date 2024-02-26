@@ -6,6 +6,12 @@
         ../common/proxmox.nix
     ];
 
+    networking.hostName = "load-balancer-2"; # Define your hostname.
+    networking.interfaces.ens18.ipv4.addresses = [ {
+        address = "192.168.104.29";
+        prefixLength = 24;
+    }];
+
     services.caddy.enable = true;
     services.caddy.email = "chris@christopherjones.us";
     services.caddy.logFormat = ''

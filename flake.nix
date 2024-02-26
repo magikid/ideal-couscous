@@ -64,6 +64,25 @@
           }
         ];
       };
+
+      "192.168.104.27" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./hosts/zigbee2mqtt/configuration.nix
+          sops-nix.nixosModules.sops {
+            sops = {
+              defaultSopsFile = ./secrets/secrets.yaml;
+              age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+              secrets = {
+                "mqtt/zigbee2mqtt/username" = {};
+                "mqtt/zigbee2mqtt/password" = {};
+                "tailscale/auth_token" = {};
+              };
+            };
+          }
+        ];
+      };
     };
   };
 }

@@ -58,12 +58,11 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  networking.hostName = "load-balancer-2"; # Define your hostname.
   networking.useDHCP = false;
   networking = {
     interfaces = {
       ens18.ipv4.addresses = [{
-        address = "192.168.104.29";
+        address = "192.168.104.100";
         prefixLength = 24;
       }];
     };
@@ -73,7 +72,6 @@
     };
   };
   networking.nameservers = [ "192.168.104.1" ];
-  networking.firewall.enable = false;
 
   ## Garbage collection
   # https://nixos.wiki/wiki/Storage_optimization#Automation
