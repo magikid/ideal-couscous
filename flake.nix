@@ -28,23 +28,6 @@
 
       #   modules = [ ./common/configuration.nix ];
       # };
-      "load-balancer-2" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        modules = [
-          ./hosts/load-balancer-2/configuration.nix
-          sops-nix.nixosModules.sops {
-            sops = {
-              defaultSopsFile = ./secrets/secrets.yaml;
-              age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-              secrets = {
-                "zigbee2mqtt/mqtt_username" = {};
-                "zigbee2mqtt/mqtt_password" = {};
-              };
-            };
-          }
-        ];
-      };
 
       "external-load-balancer.hilandchris.com" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
