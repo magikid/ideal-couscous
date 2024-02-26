@@ -23,11 +23,23 @@
     ...
   }: {
     nixosConfigurations = {
-      # default = nixpkgs.lib.nixosSystem {
-      #   system = "x86_64-linux";
+      default = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-      #   modules = [ ./common/configuration.nix ];
-      # };
+        modules = [
+          ./common/configuration.nix
+          sops-nix.nixosModules.sops {
+            sops = {
+              defaultSopsFile = ./secrets/secrets.yaml;
+              age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+              secrets = {
+                "my-password" = {};
+                "tailscale/auth_token" = {};
+              };
+            };
+          }
+        ];
+      };
 
       "external-load-balancer.hilandchris.com" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -39,9 +51,10 @@
               defaultSopsFile = ./secrets/secrets.yaml;
               age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
+                "my-password" = {};
+                "tailscale/auth_token" = {};
                 "digital_ocean/dns_token" = {};
                 "cloudflare/dns_token" = {};
-                "tailscale/auth_token" = {};
               };
             };
           }
@@ -58,9 +71,10 @@
               defaultSopsFile = ./secrets/secrets.yaml;
               age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
               secrets = {
+                "my-password" = {};
+                "tailscale/auth_token" = {};
                 "mqtt/zigbee2mqtt/username" = {};
                 "mqtt/zigbee2mqtt/password" = {};
-                "tailscale/auth_token" = {};
               };
             };
           }

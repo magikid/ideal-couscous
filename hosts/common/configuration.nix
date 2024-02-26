@@ -132,7 +132,7 @@
 
   # Set your time zone.
   time.timeZone = "America/Kentucky/Louisville";
-
+  sops.secrets.my-password.neededForUsers = true;
   users = {
     mutableUsers = false; # Disable passwd
 
@@ -141,7 +141,7 @@
         hashedPassword = "*"; # Disable root password
       };
       chrisj = {
-        hashedPassword = "$y$jET$eQzDbgzetAjg3ybPY/lgn.$LQi1H9MqV47wJeZB7QB3n4J95Om3Gc.U813i4M5hX03";
+        hashedPasswordFile = config.sops.secrets."my-password".path;
         isNormalUser = true;
         extraGroups = [ "networkmanager" "wheel" ];
         openssh.authorizedKeys.keys = [
