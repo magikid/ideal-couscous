@@ -176,4 +176,10 @@ in
 
         reverse_proxy http://foundry.exocomet-cloud.ts.net:30000
     '';
+
+    services.caddy.virtualHosts."myqueue.rocks".logFormat = "output discard";
+    services.caddy.virtualHosts."myqueue.rocks".extraConfig = ''
+        redir https://www.christopherjones.us/ 307
+    '';
+
 }
