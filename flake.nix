@@ -61,7 +61,7 @@
         ];
       };
 
-      "192.168.104.27" = nixpkgs.lib.nixosSystem {
+      "zigbee2mqtt.hilandchris.com" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
