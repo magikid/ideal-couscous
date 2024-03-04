@@ -1,6 +1,5 @@
 keys:
   - &admin_chris age18rmks3pr2z0mhpe4nga72t5mxxrnz3lzqzddycqh5arm3m98spxs0hevyz
-  - &server_zigbee2mqtt age1l8kjdm4074xfxjl93cnqag4c4cdj6qk8ppq8wjmud0ev6a0el3wsmrdefs
   - &server_external_load_balancer age1q74dpahsr3u6h25tpmcl7076ndxe8c7pamdjyzlfpw9wx83a7fkq9arn2y
   - &server_zigbee2mqtt age1mel2sf3phq84lv7u2d07v268p369dv8kzx4ngf6f6an6q0m0xgrqs40j9w
 creation_rules:
@@ -8,6 +7,5 @@ creation_rules:
     key_groups:
     - age:
       - *admin_chris
-      - *server_zigbee2mqtt
       - *server_external_load_balancer
       - *server_zigbee2mqtt
