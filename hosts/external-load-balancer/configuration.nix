@@ -15,7 +15,6 @@ let
     hugo-christopherjones-us = (pkgs.callPackage ./hugo-christopherjones-us.nix {});
     custom-caddy = (pkgs.callPackage ./custom-caddy.nix {
         plugins = [
-            "github.com/caddy-dns/digitalocean"
             "github.com/caddy-dns/cloudflare"
         ];
     });
@@ -26,6 +25,7 @@ in
     imports = lib.optional (builtins.pathExists ./do-userdata.nix) ./do-userdata.nix ++ [
         (modulesPath + "/virtualisation/digital-ocean-config.nix")
         ../common/configuration.nix
+        ./internal-services.nix
     ];
 
     boot.kernel.sysctl = {
@@ -40,9 +40,6 @@ in
         pkgs.openssl
     ];
 
-    sops.templates."digitalocean-dns-token.json".content = ''
-        acme_dns digitalocean "${config.sops.placeholder."digital_ocean/dns_token"}"
-    '';
     sops.templates."digitalocean-dns-token.json".owner = "caddy";
     sops.templates."cloudflare-dns-token.json".content = ''
         acme_dns cloudflare "${config.sops.placeholder."cloudflare/dns_token"}"
@@ -181,5 +178,4 @@ in
     services.caddy.virtualHosts."myqueue.rocks".extraConfig = ''
         redir https://www.christopherjones.us/ 307
     '';
-
 }
