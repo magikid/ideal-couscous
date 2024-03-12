@@ -4,13 +4,18 @@
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # secret manager
     sops-nix = {
       url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixhome = {
+      url = "github:magikid/nix-home";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -20,8 +25,9 @@
     nixpkgs,
     home-manager,
     sops-nix,
+    nixhome,
     ...
-  }: {
+  }@inputs: {
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -41,7 +47,7 @@
         ];
       };
 
-      "external-load-balancer.hilandchris.com" = nixpkgs.lib.nixosSystem {
+      "external-load-balancer.exocomet-cloud.ts.net" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
@@ -61,11 +67,13 @@
         ];
       };
 
-      "zigbee2mqtt.hilandchris.com" = nixpkgs.lib.nixosSystem {
+      "zigbee2mqtt.exocomet-cloud.ts.net" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
 
         modules = [
           ./hosts/zigbee2mqtt/configuration.nix
+
           sops-nix.nixosModules.sops {
             sops = {
               defaultSopsFile = ./secrets/secrets.yaml;
@@ -77,6 +85,13 @@
                 "mqtt/zigbee2mqtt/password" = {};
               };
             };
+          }
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.chrisj = import "${nixhome}/home.nix";
           }
         ];
       };

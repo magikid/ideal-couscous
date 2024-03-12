@@ -1,4 +1,4 @@
-{ config, pkgs, sops, ... }:
+{ config, pkgs, sops, home-manager, ... }:
 
 {
     imports =
@@ -21,6 +21,7 @@
     services.zigbee2mqtt = {
         enable = true;
         settings = {
+            permit_join = true;
             availability = true;
             homeassistant = true;
             serial = {
@@ -34,6 +35,16 @@
             frontend = {
                 port = 8080;
                 url = "https://zigbee2mqtt.hilandchris.com";
+            };
+            advanced = {
+                last_seen = "ISO_8601_local";
+            };
+            device_options = {
+                homeassistant = {
+                    last_seen = {
+                        enabled_by_default = true;
+                    };
+                };
             };
         };
     };
