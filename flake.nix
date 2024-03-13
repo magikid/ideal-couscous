@@ -27,7 +27,7 @@
     sops-nix,
     nixhome,
     ...
-  }@inputs: {
+  }: {
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -64,12 +64,17 @@
               };
             };
           }
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.chrisj = import "${nixhome}/home.nix";
+          }
         ];
       };
 
       "zigbee2mqtt.exocomet-cloud.ts.net" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
 
         modules = [
           ./hosts/zigbee2mqtt/configuration.nix
@@ -90,7 +95,6 @@
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.chrisj = import "${nixhome}/home.nix";
           }
         ];

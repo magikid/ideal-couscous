@@ -14,6 +14,7 @@
     fd
     git
     glibcLocales
+    home-manager
     htop
     jq
     just
@@ -27,6 +28,7 @@
     tmux
     vim
     wget
+    zsh
   ];
 
   # Select internationalisation properties.
@@ -148,6 +150,8 @@
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCz3bvIgjt2F9fxRDHuR6jRcCdpi3itDHir3Tq70hcodwGOz1xTS6+bPEvrU1qlimevmfSLluWmQGk60AxhclS6obOyLwUcKKUz71djxX+6ogInxIFzQ3BWfYrDy1G19ot6kRm/opIH16yWVqDpA35pwfxXtxNqs3dQkNLQvZckokOm+WOJ0SZAJKXXd6u+66Z2JHoASD5D3VaCfyquUGuVmlWd5nIr9vqVo/JywLTkmaf7wRuu4ejT1bd4dOFXB/sSNCU/4K4qBunABaYKf6cuIhbY7yYEh9YvAk6F+opO132E/4x9YMVGrbcL4lyJ03P/yZ1sZwFxuP4TvO7qUOXewh46xJ0PeOx9BfodztaZIG0X1ilcnFwIlLhQ89xgbDad8otpqSSXzAAHGEnDMQpk+D0A6y2BcVBouYzw2f328FiJzDCgLYK4DnNFcnc7LktBZyJQBqWGJGv8LHGXqS2BZjf3x334HHxzv35tilE46C0UCS8SDI53yITi7/7P/juJAgWUszI6DqL+0ffkklOCy0+Id6lLBcObzTEKJ+EdfNylHrHYZ2JD3MZsXlsloNuJnXw6E1aboYcxXWJXEt7L3N73A3VO76w3xITwbSBIcEsPmbZRebi8x9yJYU8myZLEc8mav9BKl6Dsm6m5Rk+YHXdBUsLRT0YGXr9vlAoj+Q=="
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBA3/OeC/ibOasuyJfPPzHlR8XhyRw1yGBJsv1yQw/qu"
         ];
+        shell = pkgs.zsh;
+        ignoreShellProgramCheck = true;
       };
     };
   };
