@@ -79,8 +79,9 @@
   ## Unattended upgrade
   system.autoUpgrade = {
     enable = true;
+    dates = "12:30 America/Kentucky/Louisville";
+    flake = "github:magikid/ideal-couscous";
     allowReboot = true;
-    dates = "weekly America/Kentucky/Louisville";
   };
 
   ## Optional: Clear >1 month-old logs

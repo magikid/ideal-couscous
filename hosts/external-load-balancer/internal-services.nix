@@ -32,4 +32,11 @@ in {
 
         reverse_proxy home-assistant.exocomet-cloud.ts.net:1880
     '';
+
+    services.caddy.virtualHosts."nextcloud.hilandchris.com".logFormat = defaultLogFormat;
+    services.caddy.virtualHosts."nextcloud.hilandchris.com".extraConfig = ''
+        bind external-load-balancer.exocomet-cloud.ts.net
+
+        reverse_proxy nextcloud.exocomet-cloud.ts.net
+    '';
 }

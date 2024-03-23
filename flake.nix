@@ -99,6 +99,32 @@
           }
         ];
       };
+
+      "nextcloud.exocomet-cloud.ts.net" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./hosts/nextcloud/configuration.nix
+
+          sops-nix.nixosModules.sops {
+            sops = {
+              defaultSopsFile = ./secrets/secrets.yaml;
+              age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+              secrets = {
+                "my-password" = {};
+                "tailscale/auth_token" = {};
+                "nextcloud/admin_password" = {};
+              };
+            };
+          }
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.chrisj = import "${nixhome}/home.nix";
+          }
+        ];
+      };
     };
   };
 }
